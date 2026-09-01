@@ -1,0 +1,28 @@
+version: "3"
+
+networks:
+  stack_ponte:
+    external: true
+
+services:
+  frontend_enviobolivia:
+    container_name: "frontend_enviobolivia"
+    image: "webdevops/apache:latest"
+    networks:
+      - stack_ponte
+    volumes:
+      - "${PATHPESSOAL}/enviobolivia/front/dist:/app"
+    ports:
+      - 4087:80
+
+
+  backend_enviobolivia:
+    container_name: "backend_enviobolivia"
+    image: golang:1.16.3
+    networks:
+      - stack_ponte
+    volumes:
+      - ${PATHPESSOAL}/enviobolivia/backgo:/app
+    ports:
+      - 4027:8000
+    command: "/bin/sh -c 'cd /app && ls && ./main'"

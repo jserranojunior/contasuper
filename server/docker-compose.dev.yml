@@ -1,0 +1,41 @@
+version: "3"
+
+networks:
+  stack_dev:
+    external: true
+
+services:
+  dev_golang_contasuper:
+    container_name: "dev_golang_contasuper"
+    image: golang:1.24.4
+    working_dir: /app
+    restart: always
+    volumes:
+      - ${DEVPATHCLIENTES}/contasuper/backgo:/app
+      - ${DEVPATHCLIENTES}/contasuper/server/cespare:/go/pkg/mod/github.com/cespare
+      - ${DEVPATHCLIENTES}/contasuper/server/reflex:/go/bin/reflex
+    ports:
+      - "3033:8000"
+    networks:
+      - stack_dev
+    command: "/bin/sh -c 'cd /app && reflex -c /app/reflex.conf'"
+
+
+  dev_frontend_contasuper:
+    container_name: "dev_frontend_contasupera"
+    image: "node:lts"
+    working_dir: /app
+    restart: always
+    volumes:
+      - "${DEVPATHCLIENTES}/contasuper/front:/app"
+    command: "yarn dev"
+    networks:
+      - stack_dev
+    mem_limit: 1500m
+    memswap_limit: 1500m
+    user: "1000:1000"
+    environment:
+      - UID=1000
+      - GID=1000
+    ports:
+      - "8087:3000"

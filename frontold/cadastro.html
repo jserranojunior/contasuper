@@ -1,0 +1,116 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Envios Bolivia</title>
+    <!-- Adicione os links para o Tailwind CSS e outras dependências aqui -->
+    <!-- Lembre-se de configurar seu ambiente para incluir o Tailwind CSS -->
+</head>
+<body class="bg-gray-100  ">
+
+    <div class="container mx-auto mt-8 p-8 bg-white max-w-md rounded shadow-md">
+   
+        <!-- Formulário de Acesso -->
+        <form action="#" method="POST">
+            <h2 class="text-2xl font-bold mb-4">Cadastro</h2>
+
+  
+<!-- Nome Completo -->
+<div class="mb-4">
+    <label for="nome" class="block text-gray-700 text-sm font-bold mb-2">Nome Completo</label>
+    <input type="text" id="nome" name="nome" class="w-full px-3 py-2 border rounded">
+</div>
+
+<!-- E-mail -->
+<div class="mb-4">
+    <label for="cadastroEmail" class="block text-gray-700 text-sm font-bold mb-2">E-mail</label>
+    <input type="email" id="cadastroEmail" name="cadastroEmail" class="w-full px-3 py-2 border rounded">
+</div>
+
+<!-- Telefone -->
+<div class="mb-4">
+    <label for="telefone" class="block text-gray-700 text-sm font-bold mb-2">Telefone</label>
+    <input type="tel" id="telefone" name="telefone" class="w-full px-3 py-2 border rounded">
+</div>
+
+<!-- Data de Nascimento -->
+<div class="mb-4">
+    <label for="dataNascimento" class="block text-gray-700 text-sm font-bold mb-2">Data de Nascimento</label>
+    <input type="text" id="dataNascimento" name="dataNascimento" class="w-full px-3 py-2 border rounded" placeholder="dd/mm/yyyy">
+</div>
+
+<!-- Senha -->
+<div class="mb-4">
+    <label for="cadastroSenha" class="block text-gray-700 text-sm font-bold mb-2">Senha</label>
+    <input type="password" id="cadastroSenha" name="cadastroSenha" class="w-full px-3 py-2 border rounded">
+</div>
+
+<!-- Confirmação de Senha -->
+<div class="mb-4">
+    <label for="confirmacaoSenha" class="block text-gray-700 text-sm font-bold mb-2">Confirmação de Senha</label>
+    <input type="password" id="confirmacaoSenha" name="confirmacaoSenha" class="w-full px-3 py-2 border rounded">
+</div>
+
+    <!-- Botão de Acesso -->
+    <div class="flex">
+        <div class="w-1/2 mx-1">
+            <a href="/">
+            <div  class="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-700">Acessar</div>
+        </a>
+        </div>
+        <div class="w-1/2 mx-1">
+            <a href="/cadastro.html">
+            <div class="w-full bg-green-500 text-white p-3 rounded hover:bg-green-700">Cadastrar</div>
+        </a>
+        </div>
+    </div>
+            </div>
+        </form>
+
+        <!-- Formulário de Cadastro -->
+        <div class="mt-8">
+       
+
+            <!-- Botão de Cadastro -->
+        </div>
+    </div>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</body>
+<script>
+    // Adiciona a máscara ao campo de data usando jQuery Inputmask
+    document.addEventListener('DOMContentLoaded', function() {
+   
+            // Adiciona a máscara ao campo de data
+            var dataNascimentoInput = document.getElementById('dataNascimento');
+
+            dataNascimentoInput.addEventListener('input', function() {
+                var value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+                if (value.length > 0) {
+                    value = value.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+                }
+                this.value = value;
+            });
+        });
+</script>
+</html>
+<style>
+   body {
+            background-image: url('./brasilboliviawalppaper.png');
+            background-size: cover; /* Isso garante que a imagem cubra todo o corpo */
+            background-position: center; /* Isso centraliza a imagem */
+            height: 100vh; /* Garante que o corpo tenha 100% da altura da tela */
+            margin: 0; /* Remove as margens padrão do corpo */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Adicione o restante do seu estilo aqui */
+     
+</style>
