@@ -1,137 +1,161 @@
 <template>
-  <div>
-    <div class="context">
-      <div class="flex items-center justify-center my-32">
-
-        
-            <div class="container mx-auto mt-8 p-8 bg-white text-black max-w-md rounded shadow-md">
-              <h2 class="text-2xl font-bold mb-4">Cadastro</h2>
-              <span v-if="register && register.fields">
-                <div
-                  v-if="register.erro"
-                  class="my-1 block text-sm text-gray-300 text-center bg-yellow-800 border border-yellow-900 h-8 items-center p-2 rounded-lg"
-                  role="alert"
-                >
-                  {{ register.erro }}
-                </div>
-              </span>
-
-              <form class="form-control">
-
-                <div class="mb-4">
-    <label for="nome" class="block text-gray-700 text-sm font-bold mb-2">Nome Completo</label>
-    <input v-model="register.fields.name" type="text" id="nome" name="nome" class="w-full px-3 py-2 border rounded">
-</div>
-
-<!-- E-mail -->
-<div class="mb-4">
-    <label for="cadastroEmail" class="block text-gray-700 text-sm font-bold mb-2">E-mail</label>
-    <input v-model="register.fields.email" type="email" id="cadastroEmail" name="cadastroEmail" class="w-full px-3 py-2 border rounded">
-</div>
-
-<!-- Telefone -->
-<div class="mb-4">
-    <label for="telefone" class="block text-gray-700 text-sm font-bold mb-2">Telefone</label>
-    <div class="flex">
-                    <div class="dropdown w-auto max-w-xs ">
-                      <label tabindex="0" class="btn btn-sm btn-warning h-full ">{{
-                        register.phoneCode
-                      }}</label>
-                      <ul
-                        tabindex="0"
-                        class="dropdown-content menu p-2 shadow bg-white rounded-box w-52"
-                      >
-                        <li @click="register.phoneCode = '+55'">
-                          <a>
-                            <img
-                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/33px-Flag_of_Brazil.svg.png"
-                            />
-                            +55
-                          </a>
-                        </li>
-                        <li @click="register.phoneCode = '+591'">
-                          <a>
-                            <img
-                              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Bolivia.svg/33px-Flag_of_Bolivia.svg.png"
-                            />
-                            +591</a
-                          >
-                        </li>
-                      
-                      </ul>
-                    </div>
-                    <div class="w-full max-w-xs pl-2">
-                      <input
-                        id="cellphone"
-                        v-model="register.fields.cellphone"
-                        type="text"
-                        class="w-full px-3 py-2 border rounded"
-                        placeholder="Celular"
-                        v-maska="'(##) #####-####'"
-                      />
-                    </div>
-                  </div>
-</div>
-
-
-                 
-              
-
-<!-- Data de Nascimento -->
-<div class="mb-4">
-    <label for="dataNascimento" class="block text-gray-700 text-sm font-bold mb-2">Data de Nascimento</label>
-    <input  v-maska="'##/##/####'" v-model="register.fields.dtnascimento" type="text" id="dataNascimento" name="dataNascimento" class="w-full px-3 py-2 border rounded" placeholder="dd/mm/yyyy">
-</div>
-
-<!-- Senha -->
-<div class="mb-4">
-    <label for="cadastroSenha" class="block text-gray-700 text-sm font-bold mb-2">Senha</label>
-    <input v-model="register.fields.password" type="password" id="cadastroSenha" name="cadastroSenha" class="w-full px-3 py-2 border rounded">
-</div>
-
-<!-- Confirmação de Senha -->
-<div class="mb-4">
-    <label for="confirmacaoSenha" class="block text-gray-700 text-sm font-bold mb-2">Confirmação de Senha</label>
-    <input v-model="register.confirmPassword" type="password" id="confirmacaoSenha" name="confirmacaoSenha" class="w-full px-3 py-2 border rounded">
-</div>
-
-
-              
-              
-
-              </form>
-              <div class="mt-2 border-t"></div>
-              <div class="flex">
-        <div class="w-1/2 mx-1">
-            <a href="/">
-            <div  class="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-700 cursor-pointer">Acessar</div>
-        </a>
-        </div>
-        <div class="w-1/2 mx-1">
-           
-            <div class="w-full bg-green-500 text-white p-3 rounded hover:bg-green-700 cursor-pointer" @click="cadastrar()">Cadastrar</div>
+  <div class="min-h-screen flex items-start justify-center p-4 pt-12 md:pt-20">
+    <div class="bg-gray-900 text-white p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-800">
       
+      <!-- Mensagens de Alerta (Erro / Sucesso) -->
+      <span v-if="register && register.fields">
+        <div
+          v-if="register.erro"
+          class="mb-4 block text-xs font-medium text-red-200 text-center bg-red-950/80 border border-red-800 p-3 rounded-xl"
+          role="alert"
+        >
+          {{ register.erro }}
         </div>
-    </div>
+      </span>
+
+      <h3 class="text-xl md:text-2xl font-bold text-gray-100 mb-6 text-center">
+        Cadastro<sup class="text-xs font-normal">®</sup>
+      </h3>
+
+      <!-- Formulário de Cadastro -->
+      <form @submit.prevent class="space-y-4">
+
+        <!-- Nome Completo -->
+        <div>
+          <label for="nome" class="block text-xs font-medium text-gray-100 mb-1">Nome Completo</label>
+          <input 
+            v-model="register.fields.name" 
+            type="text" 
+            id="nome" 
+            name="nome" 
+            placeholder="Seu nome completo"
+            class="w-full px-4 py-3 rounded-xl border border-gray-500 text-sm text-gray-100 focus:bg-gray-800 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all"
+          >
+        </div>
+
+        <!-- E-mail -->
+        <div>
+          <label for="cadastroEmail" class="block text-xs font-medium text-gray-100 mb-1">E-mail</label>
+          <input 
+            v-model="register.fields.email" 
+            type="email" 
+            id="cadastroEmail" 
+            name="cadastroEmail" 
+            placeholder="seu.email@exemplo.com"
+            class="w-full px-4 py-3 rounded-xl border border-gray-500 text-sm text-gray-100 focus:bg-gray-800 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all"
+          >
+        </div>
+
+        <!-- Telefone -->
+        <div>
+          <label for="telefone" class="block text-xs font-medium text-gray-100 mb-1">Telefone</label>
+          <div class="flex gap-2">
+            <div class="dropdown w-auto">
+              <label tabindex="0" class="btn btn-sm h-full bg-gray-800 border-gray-500 text-white hover:bg-gray-700 rounded-xl px-3">
+                {{ register.phoneCode }}
+              </label>
+              <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-gray-900 border border-gray-700 rounded-box w-40 z-20 text-white">
+                <li @click="register.phoneCode = '+55'">
+                  <a class="flex items-center gap-2 hover:bg-gray-800 rounded-lg">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Flag_of_Brazil.svg/33px-Flag_of_Brazil.svg.png" class="w-5" />
+                    +55
+                  </a>
+                </li>
+                <li @click="register.phoneCode = '+591'">
+                  <a class="flex items-center gap-2 hover:bg-gray-800 rounded-lg">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Flag_of_Bolivia.svg/33px-Flag_of_Bolivia.svg.png" class="w-5" />
+                    +591
+                  </a>
+                </li>
+              </ul>
             </div>
-      
-    
-      </div>
-    </div>
-      
+            <div class="w-full">
+              <input
+                id="cellphone"
+                v-model="register.fields.cellphone"
+                type="text"
+                class="w-full px-4 py-3 rounded-xl border border-gray-500 text-sm text-gray-100 focus:bg-gray-800 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all"
+                placeholder="(00) 00000-0000"
+                v-maska="'(##) #####-####'"
+              />
+            </div>
+          </div>
+        </div>
 
+        <!-- Data de Nascimento -->
+        <div>
+          <label for="dataNascimento" class="block text-xs font-medium text-gray-100 mb-1">Data de Nascimento</label>
+          <input 
+            v-maska="'##/##/####'" 
+            v-model="register.fields.dtnascimento" 
+            type="text" 
+            id="dataNascimento" 
+            name="dataNascimento" 
+            class="w-full px-4 py-3 rounded-xl border border-gray-500 text-sm text-gray-100 focus:bg-gray-800 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all" 
+            placeholder="dd/mm/aaaa"
+          >
+        </div>
+
+        <!-- Senha -->
+        <div>
+          <label for="cadastroSenha" class="block text-xs font-medium text-gray-100 mb-1">Senha</label>
+          <input 
+            v-model="register.fields.password" 
+            type="password" 
+            id="cadastroSenha" 
+            name="cadastroSenha" 
+            placeholder="••••••••"
+            class="w-full px-4 py-3 rounded-xl border border-gray-500 text-sm text-gray-100 focus:bg-gray-800 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all"
+          >
+        </div>
+
+        <!-- Confirmação de Senha -->
+        <div>
+          <label for="confirmacaoSenha" class="block text-xs font-medium text-gray-100 mb-1">Confirmação de Senha</label>
+          <input 
+            v-model="register.confirmPassword" 
+            type="password" 
+            id="confirmacaoSenha" 
+            name="confirmacaoSenha" 
+            placeholder="••••••••"
+            class="w-full px-4 py-3 rounded-xl border border-gray-500 text-sm text-gray-100 focus:bg-gray-800 focus:outline-none focus:border-brand-orange focus:ring-1 focus:ring-brand-orange transition-all"
+          >
+        </div>
+
+      </form>
+
+      <div class="mt-6 border-t border-gray-800 pt-4"></div>
+
+      <!-- Botões de Ação (Acessar e Cadastrar) -->
+      <div class="grid grid-cols-2 gap-3">
+        <a href="/login" class="w-full">
+          <button class="w-full py-3.5 px-4 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-semibold text-sm transition-all duration-200 border border-gray-700 text-center cursor-pointer">
+            Acessar
+          </button>
+        </a>
+        <button 
+          type="button" 
+          @click="cadastrar()" 
+          class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#FF6B00] to-[#FF4500] hover:from-[#E66000] hover:to-[#E03D00] text-white font-semibold text-sm shadow-lg shadow-orange-500/30 transition-all duration-200 active:scale-[0.99] cursor-pointer"
+        >
+          Cadastrar
+        </button>
+      </div>
+
+    </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import useStore from "../../helpers/stores/store";
-import { onMounted, inject, reactive, watch } from "vue";
-import phoneMask from '../../helpers/mask/phoneMask';
+import { onMounted } from "vue";
 
 let { register, router, auth } = useStore();
 
 function redirectPageTo(url: string) {
   router.push({ path: url });
 }
+
 function cadastrar() {
   register.Register().then(async (res: boolean) => {
     if (res) {
@@ -139,6 +163,7 @@ function cadastrar() {
     }
   });
 }
+
 async function logar() {
   auth.fields.email = register.fields.email;
   auth.fields.password = register.fields.password;
@@ -149,28 +174,11 @@ async function logar() {
   });
 }
 
-function filterDataNascimento(value:string){
-  var value = value.replace(/\D/g, ''); // Remove caracteres não numéricos
-       if (value.length > 0) {
-           value = value.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
-       }
-      return value
-}
 onMounted(() => {
   document.addEventListener("keyup", (event) => {
     if (event.key == "Enter") {
       cadastrar();
     }
   });
-
-  document.addEventListener('DOMContentLoaded', function() {
-   
-   // Adiciona a máscara ao campo de data
-   var dataNascimentoInput = document.getElementById('dataNascimento');
 });
-
-
-});
-
-
 </script>
