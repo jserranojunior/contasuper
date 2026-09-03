@@ -1,43 +1,22 @@
 <template>
+  
   <div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
     <!-- Header / Navbar -->
-    <header class="bg-gray-900 border-b border-gray-800 px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <h1 class="text-xl font-bold text-white tracking-wide">
-          Conta<span class="text-orange-500"> Super</span>
-        </h1>
-      </div>
 
-      <!-- Usuário e Sair -->
-      <div class="flex items-center gap-4">
-        <div class="text-right hidden sm:block">
-          <p class="text-sm font-semibold text-gray-200">
-            {{ auth.fields.email || 'Usuário Logado' }}
-          </p>
-          <span class="text-xs text-orange-400 font-medium">Sessão Ativa</span>
-        </div>
-
-        <button 
-           @click="sair()"
-          class="px-4 py-2 text-xs font-semibold rounded-xl bg-gray-800 hover:bg-red-950/50 hover:text-red-400 border border-gray-700 hover:border-red-800 text-gray-300 transition-all cursor-pointer"
-        >
-          Sair
-        </button>
-      </div>
-    </header>
 
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto space-y-6">
+
+        <div class="bg-gradient-to-r from-gray-900 via-gray-900 to-orange-950/30 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">
+            Bem-vindo de volta!
+          </h2>
+          <p class="text-sm text-gray-400">
+            Gerencie suas informações e navegue utilizando as opções do menu acima.
+          </p>
+        </div>
       
-      <!-- Boas-vindas -->
-      <div class="bg-gradient-to-r from-gray-900 via-gray-900 to-orange-950/30 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
-        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">
-          Bem-vindo de volta!
-        </h2>
-        <p class="text-sm text-gray-400">
-          Gerencie suas informações e acesse os recursos da plataforma através do seu painel.
-        </p>
-      </div>
+ 
 
       <!-- Grid de Indicadores / Métricas -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -54,9 +33,15 @@
           <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Permissões (ACL)</p>
           <div class="flex items-center justify-between">
             <span class="text-2xl font-bold text-white">Habilitadas</span>
-            <span class="px-2.5 py-1 text-xs font-medium bg-orange-950 text-orange-300 border border-orange-800 rounded-lg">Acesso Total</span>
+            <span class="px-2.5 py-1 text-xs font-medium bg-orange-950 text-orange-300 border border-orange-800 rounded-lg">
+             <div>{{ auth && auth.auth && auth.auth.user && auth.auth.user.role_id === 1 ? 'Administrador' : 'Cliente'   }}</div>
+
+             
+            </span>
           </div>
         </div>
+
+        
 
         <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-lg sm:col-span-2 lg:col-span-1">
           <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Último Acesso</p>

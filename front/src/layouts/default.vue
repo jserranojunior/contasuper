@@ -1,8 +1,8 @@
 <template>
   <div >
-    <!-- <nav class="navbar bg-blue-700 bg-opacity-20">
+   <nav >
       <slot name="header"></slot>
-    </nav> -->
+    </nav>
     <div class="drawer min-h-screen">
       <input id="my-drawer" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content min-h-screen bg-[#070d18] text-gray-100 font-sans">

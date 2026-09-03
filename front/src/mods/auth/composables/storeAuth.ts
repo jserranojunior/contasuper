@@ -7,7 +7,12 @@ export const store = reactive({
     password: "",
   },
   auth: {
-    erro: "",
-    token: "",
+   token: "",
+  erro: "",
+  user: {
+    name: "",
+    email: "",
+    cellphone: ""
+  }
   },
 });

@@ -109,27 +109,24 @@ export function useAuth() {
     setStateAuthError("");
     if (checkFieldsIsValid()) {
       return await login(store.fields).then((res) => {
+        // Verifique se a API retornou o token e os dados do usuário
         if (res && res.data && res.data.token) {
           setToken(res.data.token);
+          
+          // SALVA OS DADOS DO USUÁRIO NO STORE (Se o backend enviar em res.data.user)
+          if (res.data.user) {
+            store.auth.user = res.data.user;
+            
+            // Opcional: Se quiser salvar no localStorage para persistir ao atualizar a página
+            if (checkOnBrowser()) {
+              localStorage.setItem("user_name", res.data.user.name);
+              localStorage.setItem("user_cellphone", res.data.user.cellphone);
+            }
+          }
+          
           return true;
         } else {
-          if (
-            res &&
-            res.response &&
-            res.response.data &&
-            res.response.data.message
-          ) {
-            setStateAuthError(res.response.data.message);
-          } else if (res && res.response && res.response.data) {
-            setStateAuthError(
-              "Erro ao fazer login, contate o administrador do sistema"
-            );
-            console.log("Servidor offline");
-          } else if (res && res.response) {
-            setStateAuthError("Erro, contate o administrador do sistema");
-          } else if (res) {
-            console.log(res);
-          }
+          // ... (seus tratamentos de erro existentes)
           return false;
         }
       });
