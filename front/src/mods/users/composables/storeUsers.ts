@@ -5,7 +5,7 @@ export const store = reactive({
     {
       ID: -0,
       name: "",
-      phonenumber: "",
+      cellphone: "",
       email: "",
     },
   ],

@@ -25,7 +25,7 @@
                       {{user.name}}
                     </td>
                     <td>
-                      {{user.phonenumber}}
+                      {{user.cellphone}}
                     </td>
                     <td>
                       {{user.email}}

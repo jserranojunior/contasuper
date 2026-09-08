@@ -9,47 +9,57 @@ import (
 
 	"github.com/gbrlsnchs/jwt/v3"
 	"github.com/gin-gonic/gin"
-	// "reflect"
 )
 
 // VerifyJwt verify jwt is valid
 var VerifyJwt gin.HandlerFunc = func(c *gin.Context) {
+	authHeader := c.GetHeader("Authorization")
 
-	if c.Request.Header["Authorization"] != nil {
-		hash := jwt.NewHS256([]byte("secret"))
-		payload := jwt.Payload{}
-
-		HeaderToken := strings.Split(c.Request.Header["Authorization"][0], " ")[1]
-		token := []byte(HeaderToken)
-		hd, err := jwt.Verify(token, hash, &payload)
-
-		if err != nil {
-			c.JSON(401, gin.H{
-				"Data": "Token Invalido",
-			})
-			c.Abort()
-		} else {
-
-			tokenInt, err := strconv.Atoi(hd.KeyID)
-			if err != nil {
-				fmt.Println(err)
-			}
-			tokenUint := uint(tokenInt)
-
-			c.Set("id", tokenUint)
-			c.Next()
-		}
-	} else {
+	// Verifica se o header existe e se tem o formato correto (Bearer <token>)
+	if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
 		c.JSON(401, gin.H{
-			"Data": "Token inexistente",
+			"Data": "Token inexistente ou formato inválido",
 		})
 		c.Abort()
+		return
+	}
+
+	parts := strings.Split(authHeader, " ")
+	if len(parts) < 2 {
+		c.JSON(401, gin.H{
+			"Data": "Token mal formatado",
+		})
+		c.Abort()
+		return
+	}
+
+	HeaderToken := parts[1]
+	hash := jwt.NewHS256([]byte("secret"))
+	payload := jwt.Payload{}
+
+	token := []byte(HeaderToken)
+	hd, err := jwt.Verify(token, hash, &payload)
+
+	if err != nil {
+		c.JSON(401, gin.H{
+			"Data": "Token Invalido",
+		})
+		c.Abort()
+		return
+	} else {
+		tokenInt, err := strconv.Atoi(hd.KeyID)
+		if err != nil {
+			fmt.Println(err)
+		}
+		tokenUint := uint(tokenInt)
+
+		c.Set("id", tokenUint)
+		c.Next()
 	}
 }
 
-//GenerateJwt return JWT
+// GenerateJwt return JWT
 func GenerateJwt(ID uint) string {
-
 	hs := jwt.NewHS256([]byte("secret"))
 	now := time.Now()
 	pl := jwt.Payload{
@@ -63,6 +73,4 @@ func GenerateJwt(ID uint) string {
 		log.Fatal(err)
 	}
 	return string(token)
-
-	//uint8
 }
