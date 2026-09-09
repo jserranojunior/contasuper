@@ -1,99 +1,127 @@
 <template>
-  
   <div class="min-h-screen bg-gray-950 text-gray-100 flex flex-col">
-    <!-- Header / Navbar -->
-
-
     <!-- Conteúdo Principal -->
     <main class="flex-1 p-6 md:p-8 max-w-7xl w-full mx-auto space-y-6">
 
-        <div class="bg-gradient-to-r from-gray-900 via-gray-900 to-orange-950/30 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
-          <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">
-            Bem-vindo de volta!
-          </h2>
-          <p class="text-sm text-gray-400">
-            Gerencie suas informações e navegue utilizando as opções do menu acima.
-          </p>
-        </div>
+      <!-- Saudação / Banner Superior -->
+      <div class="bg-gradient-to-r from-gray-900 via-gray-900 to-orange-950/30 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-xl">
+        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">
+          Painel Financeiro
+        </h2>
+        <p class="text-sm text-gray-400">
+          Acompanhe o seu saldo, realize transferências, depósitos ou saques com rapidez e segurança.
+        </p>
+      </div>
       
- 
+      <!-- Card de Saldo com Visibilidade (Olho) -->
+       <Saldo></Saldo>
 
-      <!-- Grid de Indicadores / Métricas -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Seção de Ações Rápidas (Depósito, Transferência e Saque) -->
+      <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 md:p-8 shadow-lg space-y-4">
+        <h3 class="text-lg font-bold text-gray-200">Ações Financeiras</h3>
         
-        <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-lg">
-          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Status da Conta</p>
-          <div class="flex items-center justify-between">
-            <span class="text-2xl font-bold text-emerald-400">Ativa</span>
-            <span class="px-2.5 py-1 text-xs font-medium bg-emerald-950 text-emerald-300 border border-emerald-800 rounded-lg">Verificado</span>
-          </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          
+          <!-- Botão Depósito (Abre o Modal de Depósito) -->
+          <button 
+            @click="isDepositoOpen = true" 
+            class="p-5 rounded-xl bg-gray-800 hover:bg-gray-750 border border-gray-700 hover:border-orange-500/60 text-left transition-all duration-200 group cursor-pointer hover:scale-[1.02] active:scale-95"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+              </div>
+              <span class="text-xs uppercase tracking-wider font-medium text-gray-400">Adicionar</span>
+            </div>
+            <h4 class="font-bold text-white text-lg mb-0.5 group-hover:text-orange-400 transition-colors">Depósito</h4>
+            <p class="text-xs text-gray-400">Adicione fundos à sua conta rapidamente.</p>
+          </button>
+
+          <!-- Botão Transferência (Abre o Modal de Transferência) -->
+          <button 
+            @click="isTransferenciaOpen = true" 
+            class="p-5 rounded-xl bg-gray-800 hover:bg-gray-750 border border-gray-700 hover:border-orange-500/60 text-left transition-all duration-200 group cursor-pointer hover:scale-[1.02] active:scale-95"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                </svg>
+              </div>
+              <span class="text-xs uppercase tracking-wider font-medium text-gray-400">Enviar</span>
+            </div>
+            <h4 class="font-bold text-white text-lg mb-0.5 group-hover:text-orange-400 transition-colors">Transferência</h4>
+            <p class="text-xs text-gray-400">Envie valores para outras contas ou bancos.</p>
+          </button>
+
+          <!-- Botão Saque (Abre o Modal de Saque) -->
+          <button 
+            @click="isSaqueOpen = true" 
+            class="p-5 rounded-xl bg-gray-800 hover:bg-gray-750 border border-gray-700 hover:border-orange-500/60 text-left transition-all duration-200 group cursor-pointer hover:scale-[1.02] active:scale-95"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <div class="w-10 h-10 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-400 group-hover:bg-orange-500 group-hover:text-white transition-all">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+              </div>
+              <span class="text-xs uppercase tracking-wider font-medium text-gray-400">Retirar</span>
+            </div>
+            <h4 class="font-bold text-white text-lg mb-0.5 group-hover:text-orange-400 transition-colors">Saque</h4>
+            <p class="text-xs text-gray-400">Realize saques do seu saldo disponível.</p>
+          </button>
+
         </div>
-
-        <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-lg">
-          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Permissões (ACL)</p>
-          <div class="flex items-center justify-between">
-            <span class="text-2xl font-bold text-white">Habilitadas</span>
-            <span class="px-2.5 py-1 text-xs font-medium bg-orange-950 text-orange-300 border border-orange-800 rounded-lg">
-             <div>{{ auth && auth.auth && auth.auth.user && auth.auth.user.role_id === 1 ? 'Administrador' : 'Cliente'   }}</div>
-
-             
-            </span>
-          </div>
-        </div>
-
-        
-
-        <div class="bg-gray-900 border border-gray-800 p-6 rounded-2xl shadow-lg sm:col-span-2 lg:col-span-1">
-          <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Último Acesso</p>
-          <span class="text-2xl font-bold text-gray-200">Hoje</span>
-        </div>
-
       </div>
 
-      <!-- Seção de Ações Rápidas -->
-      <div class="bg-gray-900 border border-gray-800 rounded-2xl p-6 shadow-lg space-y-4">
-        <h3 class="text-lg font-bold text-gray-200">Ações Rápidas</h3>
-        
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <button 
-            @click="router.push('/financeiro')" 
-            class="p-4 rounded-xl bg-gray-800/60 hover:bg-gray-800 border border-gray-700/60 hover:border-orange-500/50 text-left transition-all group cursor-pointer"
-          >
-            <h4 class="font-semibold text-orange-400 group-hover:text-orange-300 mb-1">Módulo Financeiro</h4>
-            <p class="text-xs text-gray-400">Acesse seus lançamentos e relatórios.</p>
-          </button>
-
-          <button 
-            class="p-4 rounded-xl bg-gray-800/60 hover:bg-gray-800 border border-gray-700/60 hover:border-orange-500/50 text-left transition-all group cursor-pointer"
-          >
-            <h4 class="font-semibold text-orange-400 group-hover:text-orange-300 mb-1">Perfil do Usuário</h4>
-            <p class="text-xs text-gray-400">Atualize suas credenciais e e-mail.</p>
-          </button>
-
-          <button 
-            class="p-4 rounded-xl bg-gray-800/60 hover:bg-gray-800 border border-gray-700/60 hover:border-orange-500/50 text-left transition-all group cursor-pointer"
-          >
-            <h4 class="font-semibold text-orange-400 group-hover:text-orange-300 mb-1">Suporte</h4>
-            <p class="text-xs text-gray-400">Entre em contato com a equipe de atendimento.</p>
-          </button>
-        </div>
-      </div>
+      <!-- Tabela Recente de Extrato / Transações -->
+  <Extrato></Extrato>
 
     </main>
+
+    <!-- Modais Integrados -->
+    <Deposito 
+      :is-open="isDepositoOpen" 
+      @close="isDepositoOpen = false" 
+      @success="handleDepositoSuccess" 
+    />
+
+    <Transferencia 
+      :is-open="isTransferenciaOpen" 
+      @close="isTransferenciaOpen = false" 
+      @success="handleTransferenciaSuccess" 
+    />
+
+    <Saque 
+      :is-open="isSaqueOpen" 
+      @close="isSaqueOpen = false" 
+      @success="handleSaqueSuccess" 
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import useStore from "../helpers/stores/store"
-import { onMounted } from "vue"
-import { onBeforeMount, watch } from "@vue/runtime-core";
+import Deposito from './Deposito.vue'
+import Transferencia from './Transferencia.vue'
+import Saque from './Saque.vue'
+import Saldo from './Saldo.vue'
+import Extrato from './Extrato.vue'
 
 
 const { auth, router } = useStore()
 
+// Estados dos Modais
+const isDepositoOpen = ref(false)
+const isTransferenciaOpen = ref(false)
+const isSaqueOpen = ref(false)
+
+
 
 onMounted(async () => {
-  // Verifica se o usuário está logado ao carregar a tela
   if (auth && typeof auth.isLogged === 'function') {
     const logged = await auth.isLogged()
     if (!logged) {
@@ -102,19 +130,15 @@ onMounted(async () => {
   }
 })
 
+function handleDepositoSuccess(valor: string) {
+  console.log('Depósito efetuado com sucesso:', valor)
+}
 
-let { acl} = useStore()
-function redirectPageTo(url:string){ 
-    console.log("Redirecionando")
-    router.push({ path: url })              
-  }
- function sair(){
-      auth.Logout()
-      acl.clearRoutesEnableWithUserAcls()
-      redirectPageTo("/login")
-  }
+function handleTransferenciaSuccess(dados: any) {
+  console.log('Transferência efetuada com sucesso:', dados)
+}
 
-onBeforeMount(()=>{
-  auth.isLogged()
-})
+function handleSaqueSuccess(valor: string) {
+  console.log('Saque efetuado com sucesso:', valor)
+}
 </script>
