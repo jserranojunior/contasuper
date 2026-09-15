@@ -19,7 +19,6 @@ export function useTransaction() {
       .catch((res: any) => handleError(res));
   }
 
-  // Função para buscar o extrato/transações do usuário
   async function getExtrato() {
     const urlApi = "/financial/extrato";
     return await ApiConnect.get(urlApi)
@@ -27,7 +26,6 @@ export function useTransaction() {
       .catch((res: any) => handleError(res));
   }
 
-  // Funções auxiliares para padronizar o tratamento:
   function handleResponse(res: any) {
     if (res && res.data) {
       return res.data;
@@ -39,6 +37,7 @@ export function useTransaction() {
       }
     }
   }
+  console.log("Erro de requisição");
 
   function handleError(res: any) {
     console.log("Erro de requisição", res);
