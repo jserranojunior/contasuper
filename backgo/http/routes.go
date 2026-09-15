@@ -46,6 +46,10 @@ func RegisterRoutes() {
 		financial.Post("/paidbills", middlewares.VerifyJwt, handlers.StorePaidBills)
 		financial.Delete("/paidbills/:id", middlewares.VerifyJwt, handlers.DeletePaidBills)
 		financial.Get("/paidbills/:id", middlewares.VerifyJwt, handlers.EditPaidBills)
+
+		financial.Post("/deposit", middlewares.VerifyJwt, handlers.CreateDepositHandler)
+		financial.Get("/extrato", middlewares.VerifyJwt, handlers.GetUserTransactionsHandler)
+
 	}
 
 }

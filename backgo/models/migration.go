@@ -18,4 +18,5 @@ func MigrateDB() {
 	db.AutoMigrate(&Acl{})
 	db.AutoMigrate(&UserAcl{})
 	db.AutoMigrate(&AclRoutes{})
+	db.AutoMigrate(&Transaction{})
 }

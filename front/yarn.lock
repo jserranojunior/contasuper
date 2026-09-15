@@ -2927,6 +2927,11 @@ unplugin@^3.3.0:
     picomatch "^4.0.4"
     webpack-virtual-modules "^0.6.2"
 
+v-money3@^3.26.1:
+  version "3.26.1"
+  resolved "https://registry.npmjs.org/v-money3/-/v-money3-3.26.1.tgz"
+  integrity sha512-559GLqSBiurZwwzn32rPjcPm9rsOuheMF/XpAzPsNK/gucYRvFJpU2ow/RZdyR1Jn3U+rwE/6RdntaIyOuJHcw==
+
 v8-to-istanbul@^9.0.1:
   version "9.0.1"
   resolved "https://registry.npmjs.org/v8-to-istanbul/-/v8-to-istanbul-9.0.1.tgz"
@@ -2986,7 +2991,7 @@ vue-tsc@^3.3.11:
     "@volar/typescript" "2.4.28"
     "@vue/language-core" "3.3.11"
 
-"vue@^2.7.0 || ^3.2.25", vue@^3.2.25, "vue@^3.5.34 || ^4.0.0", vue@^3.5.41:
+"vue@^2.7.0 || ^3.2.25", vue@^3.2.25, "vue@^3.5.34 || ^4.0.0", vue@^3.5.41, "vue@>= 3.2.0":
   version "3.5.41"
   resolved "https://registry.npmjs.org/vue/-/vue-3.5.41.tgz"
   integrity sha512-2laE0p+aK+/AOPG/XL/WepOs/GlK755LJ1XECi9kDUrz1FKNw8rb2Xzlw9JS1rqEV55nb0ttsKxVlTCcd+R5cg==
